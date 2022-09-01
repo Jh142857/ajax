@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../lib/bootstrap-3.4.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="../lib/jquery.js"></script>
+    <script src="../lib/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+    <script src="./js/index.js"></script>
+</head>
+
+<body>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">添加新图书</h3>
+        </div>
+        <!-- form-inline行内排列 -->
+        <div class="panel-body form-inline">
+
+            <div class="input-group">
+                <span class="input-group-addon">书名</span>
+                <input type="text" class="form-control" placeholder="请输入书名" id="bookname">
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon">作者</span>
+                <input type="text" class="form-control" placeholder="请输入作者" id="author">
+            </div>
+
+            <div class="input-group">
+                <span class="input-group-addon">出版社</span>
+                <input type="text" class="form-control" placeholder="请输入出版社" id="publisher">
+            </div>
+
+            <button type="button" class="btn btn-primary">添加</button>
+
+        </div>
+
+
+    </div>
+    
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>书名</th>
+                <th>作者</th>
+                <th>出版社</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- <tr>
+                <td>1</td>
+                <td>西游记</td>
+                <td>吴承恩</td>
+                <td>北京图书出版社</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>西游记</td>
+                <td>吴承恩</td>
+                <td>北京图书出版社</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>西游记</td>
+                <td>吴承恩</td>
+                <td>北京图书出版社</td>
+            </tr> -->
+        </tbody>
+    </table>
+</body>
+
+</html>
