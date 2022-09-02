@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../lib/bootstrap-3.4.1-dist/css/bootstrap.min.css">
+    <script src="../lib/jquery.js"></script>
+    <script src="../lib/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <!-- 3.表单提交时,直接把数据传给formdata
+    <form id="form1">
+        <input type="text" name="uname">
+        <input type="password" name="upwd">
+        <button type="submit">提交</button>
+    </form> -->
+    <!-- 4.上传文件 -->
+    <input type="file" id="file"><button id="btn">提交</button>
+    <div class="progress" style="width: 800px;margin: 10px;">
+        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0"
+            aria-valuemax="100" style="width: 0%">
+            <!-- 删去span就可以显示进度 -->
+            0%
+        </div>
+    </div>
+
+    <img src="" id="img" style="display: block;width: 800px;">
+    <script>
+        // --------------1.超时提示---------------------------
+        // var xhr = new XMLHttpRequest();
+
+        // // 设置超时时间，单位为毫秒
+        // xhr.timeout = 100;
+        // xhr.ontimeout = () => {
+        //     alert('请求超时！');
+        // }
+
+        // xhr.open('get', 'http://www.liulongbin.top:3006/api/getbooks')
+        // xhr.send()
+        // xhr.onreadystatechange = () => {
+        //     if(xhr.readyState === 4 && xhr.status === 200) {
+        //         console.log(JSON.parse(xhr.responseText));
+        //     }
+        // }
+
+        // ---------------2.使用formdata对象管理表单数据----------
+        // var fd = new FormData();
+        // fd.append('uname', 'cjh');
+        // fd.append('upwd', '222222');
+        // console.log(fd);
+
+        // var xhr = new XMLHttpRequest();
+        // xhr.open('post', 'http://www.liulongbin.top:3006/api/formdata');
+        // // 此时post不用设置响应头
+        // xhr.send(fd);
+        // xhr.onreadystatechange = () => {
+        //     if (xhr.readyState === 4 && xhr.status === 200) {
+        //         var res = JSON.parse(xhr.responseText);
+        //         console.log(res);
+        //         // console.log(res.data);
+        //     }
+        // }
+
+        // --------------3.使用formdata直接读取form表单-------------
+        // var form1 = document.querySelector('#form1');
+        // // DOM中的表单提交事件是submit
+        // form1.onsubmit = (e) => {
+        //     e.preventDefault();
+        //     // console.log();
+        //     var fd = new FormData(form1);
+        //     // console.log(fd);
+        //     var xhr = new XMLHttpRequest();
+        //     xhr.open('post', 'http://www.liulongbin.top:3006/api/formdata');
+        //     // 此时post不用设置响应头
+        //     xhr.send(fd);
+        //     xhr.onreadystatechange = () => {
+        //         if (xhr.readyState === 4 && xhr.status === 200) {
+        //             var res = JSON.parse(xhr.responseText);
+        //             console.log(res);
+        //             // console.log(res.data);
+        //         }
+        //     }
+        // }
+
+        // -------------4.上传文件实现-------------------------
+        var btn = document.querySelector('#btn');
+
+        btn.addEventListener('click', function () {
+            var fd = new FormData();
+            // .files属性得到提交的文件列表
+            var file = document.querySelector('#file').files;
+            if (file.length <= 0) {
+                return alert("请上传文件！")
+            }
+            fd.append('avatar', file[0]);
+            var xhr = new XMLHttpRequest();
+
+            // ------------5.计算上传进度--------------------
+            // 需要写到send请求前
+            // 正在上传事件
+            xhr.upload.onprogress = (e) => {
+                if (e.lengthComputable) {
+                    var percent = Math.ceil((e.loaded / e.total) * 100);
+                    console.log(percent);
+                    var progress = document.querySelector('.progress-bar');
+                    progress.style.width = percent + '%';
+                    progress.innerHTML = percent + '%'; 
+                }
+            }
+            
+            // 上传完毕事件
+            xhr.upload.onload = () => {
+                var progress = document.querySelector('.progress-bar');
+                progress.removeAttribute('class');
+                progress.setAttribute('class', "progress-bar progress-bar-success");
+            }
+            xhr.open('post', 'http://www.liulongbin.top:3006/api/upload/avatar');
+
+            // 此时post不用设置响应头
+            xhr.send(fd);
+
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var res = JSON.parse(xhr.responseText);
+                    // console.log(res);
+                    if (res.status !== 200) alert("文件上传失败！");
+                    // console.log(res.data);
+                    document.querySelector("#img").src = 'http://www.liulongbin.top:3006' + res.url
+                }
+            }
+
+        })
+
+
+    </script>
+</body>
+
+</html>

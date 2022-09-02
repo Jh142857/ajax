@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="container"></div>
+    <script type="text/html" id="tpl">
+        <div>姓名：{{name}}</div>
+        <div>年龄：{{  age }}</div>
+        <div>性别：{{ gender }}</div>
+        <div>地址：{{address  }}</div>
+    </script>
+
+    <script>
+        var data = { name: '张三', age: 20, gender: '男', address: 'ZJU' };
+
+        var htmlStr = template('tpl', data);
+
+        document.querySelector('#container').innerHTML = htmlStr;
+
+        // 简易的模板引擎
+        function template(id, data) {
+            var str = document.getElementById(id).innerHTML;
+            
+            var reg = /{{\s*([a-zA-Z]+)\s*}}/;
+            var pattern = null;
+            while(pattern = reg.exec(str)) {
+                str = str.replace(pattern[0], data[pattern[1]]);
+            }
+            return str;
+        }
+    </script>
+</body>
+
+</html>
