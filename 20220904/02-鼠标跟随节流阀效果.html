@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../lib/jquery.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        img {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="../../Web APIs/20220820/images/angel.gif" alt="">
+    <script>
+        // var flag = true;
+
+        // $(document).mousemove(function (e) {
+        //     if (flag) {
+        //         flag = !flag;
+        //         $('img').css('left', e.pageX + 'px').css('top', e.pageY + 'px');
+        //         console.log(11);
+        //         setTimeout(function(){
+        //             flag = !flag;
+        //         },16)
+        //     }
+
+        // })
+        // 也可以用定时器来做
+        var timer = null;
+        $(document).mousemove(function(e){
+            if(!timer) {
+                timer = setTimeout(function(){
+                    $('img').css('left', e.pageX + 'px').css('top', e.pageY + 'px');
+                    timer = null;
+                },16)
+            }
+        })
+    </script>
+</body>
+
+</html>
